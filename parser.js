@@ -3,13 +3,13 @@ var fs = require('fs')
 var Firebase = require('firebase')
 var myDataRef = new Firebase('https://ceres-price-list.firebaseio.com/Ceres')
 
-fs.createReadStream("./csv/ceres-june.csv")
-  .pipe(csv.parse())
-  .pipe(csv.transform(function(record){
-    var product = createProductObject(record)
-    // myDataRef.push(product)
-    console.log(product)
-  }))
+// fs.createReadStream("./csv/ceres-june.csv")
+//   .pipe(csv.parse())
+//   .pipe(csv.transform(function(record){
+//     var product = createProductObject(record)
+//     // myDataRef.push(product)
+//     console.log(product)
+//   }))
 
 var createProductObject = function(record) {
   var object = {}
@@ -45,3 +45,4 @@ var createProductObject = function(record) {
   // if record[0] == "" && record[3] == "", this is nothing, ignore it
 }
 
+module.exports = createProductObject
