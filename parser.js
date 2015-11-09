@@ -1,10 +1,13 @@
 var csv = require('csv')
 var fs = require('fs')
+var Firebase = require('firebase')
+var myDataRef = new Firebase('https://ceres-price-list.firebaseio.com/')
 
 fs.createReadStream("./test.csv")
   .pipe(csv.parse())
   .pipe(csv.transform(function(record){
     var product = createProductObject(record)
+    myDataRef.push(product)
   }))
 
 var createProductObject = function(record){

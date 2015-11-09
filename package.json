@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sarah-arrrgh/csv-firebase#readme",
   "dependencies": {
-    "csv": "^0.4.6"
+    "csv": "^0.4.6",
+    "firebase": "^2.3.1"
   }
 }
