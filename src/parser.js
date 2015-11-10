@@ -10,5 +10,3 @@ fs.createReadStream("./csv/ceres-june.csv")
     var product = parser.parse(record)
     myDataRef.push(product)
   }))
-
-// myDataRef.on("child_added", callback)

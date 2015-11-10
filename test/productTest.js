@@ -65,5 +65,32 @@ describe("findBrand", function(){
     expect(parser.findBrand(brand)).to.equal("Insert pun here")
   })
 
+  describe("parser", function(){
+    it("remembers currentCategory",function(){
+      // arrange
+      var category = ["","","","BEVERAGE - OTHER MILKS","","","",""]
+      var product = [12072,"","","Coconut Dream Enriched (Unsweetened)","946ml","Ctn 12","$4.56","$54.68"]
+      // act
+      parser.parse(category)
+      var meaningfulName = parser.parse(product)
+      // assert
+      expect(meaningfulName).to.have.property("category")
+        .that.equals("BEVERAGE - OTHER MILKS")
+    })
+
+    it("remembers currentBrand",function(){
+      // arrange
+      var brand = ["","","","Komplete","","","",""]
+      var product = [12072,"","","Coconut Dream Enriched (Unsweetened)","946ml","Ctn 12","$4.56","$54.68"]
+      // act
+      parser.parse(brand)
+      var meaningfulName = parser.parse(product)
+      // assert
+      expect(meaningfulName).to.have.property("brand")
+        .that.equals("Komplete")
+    })
+
+  })
+
 
 })
