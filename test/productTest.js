@@ -38,14 +38,14 @@ describe("findCategory", function(){
     expect(parser.findCategory(product)).to.be.undefined
   })
 
-  it("returns a category when passing in a valid category that is upper case", function(){
-    var category = ["","","","PIET","","","",""]
-    expect(parser.findCategory(category)).to.equal("PIET")
-  })
-
-  it("returns undefined when passing in a category that is not upper case (which would be a brand)", function(){
+  it("returns undefined when passing in a valid brand (which is the same but not upper case)", function(){
     var category = ["","","","Piet","","","",""]
     expect(parser.findCategory(category)).to.be.undefined
+  })
+
+  it("returns a category when passing in a valid category (upper case)", function(){
+    var category = ["","","","PIET","","","",""]
+    expect(parser.findCategory(category)).to.equal("PIET")
   })
 
 })
@@ -54,5 +54,16 @@ describe("findBrand", function(){
   it("returns undefined when passing in a valid product", function(){
     expect(parser.findBrand(product)).to.be.undefined
   })
+
+  it("returns undefined when passing in a valid category (which is the same but upper case)", function(){
+    var brand = ["","","","PIET","","","",""]
+    expect(parser.findBrand(brand)).to.be.undefined
+  })
+
+  it("returns a brand when passing in a valid brand (not upper case)", function(){
+    var brand = ["","","","Insert pun here","","","",""]
+    expect(parser.findBrand(brand)).to.equal("Insert pun here")
+  })
+
 
 })

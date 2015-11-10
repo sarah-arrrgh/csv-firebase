@@ -25,6 +25,23 @@ parser = {
       object.caseTradePrice = record[7]
       return object
     }
+  },
+  currentCategory: "",
+  currentBrand: "",
+  parse: function(record) {
+    var newCategory = parser.findCategory(record)
+    var newBrand = parser.findBrand(record)
+    var product = parser.createProductObject(record)
+
+    if (newCategory) {
+      this.currentCategory = newCategory
+    } else if (newBrand) {
+      this.currentBrand = newBrand
+    } else if (product) { //we've hit a product
+      product.brand = this.currentBrand
+      product.category = this.currentCategory
+      return product
+    }
   }
 }
 
