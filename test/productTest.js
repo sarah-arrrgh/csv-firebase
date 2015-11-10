@@ -1,6 +1,6 @@
 var chai = require("chai")
 var expect = chai.expect
-var parser = require("../ceres-parser.js")
+var parser = require("../src/ceres-parser.js")
 
 var product = [ 12440,"",,"Rice & Quinoa Drink Enriched","946ml","Ctn 6","$4.32","$25.92" ]
 
