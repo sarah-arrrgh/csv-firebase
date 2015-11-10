@@ -23,6 +23,6 @@ fs.createReadStream("./csv/ceres-june.csv")
       product.category = currentCategory
       myDataRef.push(product)
     }
-
   }))
 
+myDataRef.on("child_added", callback)

@@ -10,6 +10,7 @@ var View = (function(){
 
   function displayProductDetails(product) {
     $("displayProductsDiv")
+      .append("<h3>This is a thing</h3>")
       .append("Product code: " + product.code)
       .append("Product description: " + product.description)
       .append("Unit size: " + product.unitSize)

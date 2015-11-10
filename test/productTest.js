@@ -32,3 +32,27 @@ describe("Create product object", function(){
       .that.equals("$25.92")
   })
 })
+
+describe("findCategory", function(){
+  it("returns undefined when passing in a valid product", function(){
+    expect(parser.findCategory(product)).to.be.undefined
+  })
+
+  it("returns a category when passing in a valid category that is upper case", function(){
+    var category = ["","","","PIET","","","",""]
+    expect(parser.findCategory(category)).to.equal("PIET")
+  })
+
+  it("returns undefined when passing in a category that is not upper case (which would be a brand)", function(){
+    var category = ["","","","Piet","","","",""]
+    expect(parser.findCategory(category)).to.be.undefined
+  })
+
+})
+
+describe("findBrand", function(){
+  it("returns undefined when passing in a valid product", function(){
+    expect(parser.findBrand(product)).to.be.undefined
+  })
+
+})
