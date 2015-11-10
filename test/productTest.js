@@ -1,13 +1,11 @@
 var chai = require("chai")
 var expect = chai.expect
-var createProductObject = require("../productObject.js")
+var parser = require("../ceres-parser.js")
 
-var product = [ 12440,,,"Rice & Quinoa Drink Enriched","946ml","Ctn 6","$4.32","$25.92" ]
+var product = [ 12440,"",,"Rice & Quinoa Drink Enriched","946ml","Ctn 6","$4.32","$25.92" ]
 
 describe("Create product object", function(){
-  var productObject = createProductObject(product)
-  console.log("productObject: ", productObject)
-  console.log("product: ", product)
+  var productObject = parser.createProductObject(product)
 
   it("Create a valid product code", function(){
     expect(productObject).to.have.property("code")
@@ -34,4 +32,3 @@ describe("Create product object", function(){
       .that.equals("$25.92")
   })
 })
-

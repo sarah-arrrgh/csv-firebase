@@ -2,17 +2,27 @@ var csv = require('csv')
 var fs = require('fs')
 var Firebase = require('firebase')
 var myDataRef = new Firebase('https://ceres-price-list.firebaseio.com/Ceres')
-var createProductObject = require("./productObject.js")
+var parser = require('./ceres-parser')
+
+var currentCategory
+var currentBrand
 
 fs.createReadStream("./csv/ceres-june.csv")
   .pipe(csv.parse())
   .pipe(csv.transform(function(record){
-    var product = createProductObject(record)
-    var brand = createBrand(record)
-    var category = createCategory(record)
-    // myDataRef.push(product)
-    console.log(category)
-    console.log(brand)
-    console.log(product)
+    var newCategory = parser.findCategory(record)
+    var newBrand = parser.findBrand(record)
+    var product = parser.createProductObject(record)
+
+    if (newCategory) {
+      currentCategory = newCategory
+    } else if (newBrand) {
+      currentBrand = newBrand
+    } else if (product) { //we've hit a product
+      product.brand = currentBrand
+      product.category = currentCategory
+      myDataRef.push(product)
+    }
+
   }))
 
