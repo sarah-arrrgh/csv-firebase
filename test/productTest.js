@@ -98,27 +98,35 @@ describe("Find Brand", function(){
   })
 })
 
+describe("Supplier", function(){
+
+  it("returns Ceres as the supplier on any created object", function(){
+    var parsedProduct = parser.parse(product)
+    expect(parsedProduct).to.have.property("supplier")
+      .that.equals("Ceres")
+  })
+})
+
 describe("Parser", function(){
 
   it("remembers current section",function(){
     parser.parse(section)
-    var meaningfulName = parser.parse(product)
-    expect(meaningfulName).to.have.property("section")
+    var parsedProduct = parser.parse(product)
+    expect(parsedProduct).to.have.property("section")
       .that.equals("SECTION")
   })
 
   it("remembers current category",function(){
     parser.parse(category)
-    var meaningfulName = parser.parse(product)
-    expect(meaningfulName).to.have.property("category")
+    var parsedProduct = parser.parse(product)
+    expect(parsedProduct).to.have.property("category")
       .that.equals("CATEGORY")
   })
 
   it("remembers current brand",function(){
     parser.parse(brand)
-    var meaningfulName = parser.parse(product)
-    expect(meaningfulName).to.have.property("brand")
+    var parsedProduct = parser.parse(product)
+    expect(parsedProduct).to.have.property("brand")
       .that.equals("Brand")
   })
-
 })

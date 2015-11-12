@@ -3,6 +3,7 @@ parser = {
   currentSection: "",
   currentCategory: "",
   currentBrand: "",
+  supplier: "Ceres",
 
   parse: function(record) {
     var newSection = parser.findSection(record)
@@ -20,6 +21,7 @@ parser = {
       product.brand = this.currentBrand
       product.category = this.currentCategory
       product.section = this.currentSection
+      product.supplier = this.supplier
       return product
     }
   },
