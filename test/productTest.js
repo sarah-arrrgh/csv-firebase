@@ -10,7 +10,6 @@ var product = [ 12345,"",,"Coconut Milk","200ml","Ctn 6","$2.30","$13.80" ]
 describe("Create Product Object", function(){
   var productObject = parser.createProductObject(product)
 
-
   it("Creates a valid product code", function(){
     expect(productObject).to.have.property("code")
       .that.equals(12345)
@@ -123,5 +122,3 @@ describe("Parser", function(){
   })
 
 })
-
-
