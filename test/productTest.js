@@ -2,95 +2,126 @@ var chai = require("chai")
 var expect = chai.expect
 var parser = require("../src/ceres-parser.js")
 
-var product = [ 12440,"",,"Rice & Quinoa Drink Enriched","946ml","Ctn 6","$4.32","$25.92" ]
+var section = ["SECTION","","","","","","",""]
+var category = ["","","","CATEGORY","","","",""]
+var brand = ["","","","Brand","","","",""]
+var product = [ 12345,"",,"Coconut Milk","200ml","Ctn 6","$2.30","$13.80" ]
 
-describe("Create product object", function(){
+describe("Create Product Object", function(){
   var productObject = parser.createProductObject(product)
 
-  it("Create a valid product code", function(){
+
+  it("Creates a valid product code", function(){
     expect(productObject).to.have.property("code")
-      .that.equals(12440)
+      .that.equals(12345)
   })
-  it("Create a valid product description", function(){
+
+  it("Creates a valid product description", function(){
     expect(productObject).to.have.property("description")
-      .that.equals("Rice & Quinoa Drink Enriched")
+      .that.equals("Coconut Milk")
   })
-  it("Create a valid product unit size", function(){
+
+  it("Creates a valid product unit size", function(){
     expect(productObject).to.have.property("unitSize")
-      .that.equals("946ml")
+      .that.equals("200ml")
   })
-  it("Create a valid product quantity", function(){
+
+  it("Creates a valid product quantity", function(){
     expect(productObject).to.have.property("quantity")
       .that.equals("Ctn 6")
   })
-  it("Create a valid product unit trade price", function(){
+
+  it("Creates a valid product unit trade price", function(){
     expect(productObject).to.have.property("unitTradePrice")
-      .that.equals("$4.32")
+      .that.equals("$2.30")
   })
-  it("Create a valid product case trade price", function(){
+
+  it("Creates a valid product case trade price", function(){
     expect(productObject).to.have.property("caseTradePrice")
-      .that.equals("$25.92")
+      .that.equals("$13.80")
   })
 })
 
-describe("findCategory", function(){
+describe("Find Section", function(){
+
+  it("returns undefined when passing in a valid product", function(){
+    expect(parser.findSection(product)).to.be.undefined
+  })
+
+  it("returns undefined when passing in a valid brand", function(){
+    expect(parser.findSection(brand)).to.be.undefined
+  })
+
+  it("returns undefined when passing in a valid category", function(){
+    expect(parser.findSection(category)).to.be.undefined
+  })
+
+  it("returns a section when passing in a valid section", function(){
+    expect(parser.findSection(section)).to.equal("SECTION")
+  })
+})
+
+describe("Find Category", function(){
+
   it("returns undefined when passing in a valid product", function(){
     expect(parser.findCategory(product)).to.be.undefined
   })
 
-  it("returns undefined when passing in a valid brand (which is the same but not upper case)", function(){
-    var category = ["","","","Piet","","","",""]
-    expect(parser.findCategory(category)).to.be.undefined
+  it("returns undefined when passing in a valid brand (which is the same as category but not upper case)", function(){
+    expect(parser.findCategory(brand)).to.be.undefined
+  })
+
+  it("returns undefined when passing in a valid section", function(){
+    expect(parser.findCategory(section)).to.be.undefined
   })
 
   it("returns a category when passing in a valid category (upper case)", function(){
-    var category = ["","","","PIET","","","",""]
-    expect(parser.findCategory(category)).to.equal("PIET")
+    expect(parser.findCategory(category)).to.equal("CATEGORY")
   })
-
 })
 
-describe("findBrand", function(){
+describe("Find Brand", function(){
+
   it("returns undefined when passing in a valid product", function(){
     expect(parser.findBrand(product)).to.be.undefined
   })
 
-  it("returns undefined when passing in a valid category (which is the same but upper case)", function(){
-    var brand = ["","","","PIET","","","",""]
-    expect(parser.findBrand(brand)).to.be.undefined
+  it("returns undefined when passing in a valid category (which is the same as brand but upper case)", function(){
+    expect(parser.findBrand(category)).to.be.undefined
+  })
+
+  it("returns undefined when passing in a valid section", function(){
+    expect(parser.findBrand(section)).to.be.undefined
   })
 
   it("returns a brand when passing in a valid brand (not upper case)", function(){
-    var brand = ["","","","Insert pun here","","","",""]
-    expect(parser.findBrand(brand)).to.equal("Insert pun here")
+    expect(parser.findBrand(brand)).to.equal("Brand")
+  })
+})
+
+describe("Parser", function(){
+
+  it("remembers current section",function(){
+    parser.parse(section)
+    var meaningfulName = parser.parse(product)
+    expect(meaningfulName).to.have.property("section")
+      .that.equals("SECTION")
   })
 
-  describe("parser", function(){
-    it("remembers currentCategory",function(){
-      // arrange
-      var category = ["","","","BEVERAGE - OTHER MILKS","","","",""]
-      var product = [12072,"","","Coconut Dream Enriched (Unsweetened)","946ml","Ctn 12","$4.56","$54.68"]
-      // act
-      parser.parse(category)
-      var meaningfulName = parser.parse(product)
-      // assert
-      expect(meaningfulName).to.have.property("category")
-        .that.equals("BEVERAGE - OTHER MILKS")
-    })
-
-    it("remembers currentBrand",function(){
-      // arrange
-      var brand = ["","","","Komplete","","","",""]
-      var product = [12072,"","","Coconut Dream Enriched (Unsweetened)","946ml","Ctn 12","$4.56","$54.68"]
-      // act
-      parser.parse(brand)
-      var meaningfulName = parser.parse(product)
-      // assert
-      expect(meaningfulName).to.have.property("brand")
-        .that.equals("Komplete")
-    })
-
+  it("remembers current category",function(){
+    parser.parse(category)
+    var meaningfulName = parser.parse(product)
+    expect(meaningfulName).to.have.property("category")
+      .that.equals("CATEGORY")
   })
 
+  it("remembers current brand",function(){
+    parser.parse(brand)
+    var meaningfulName = parser.parse(product)
+    expect(meaningfulName).to.have.property("brand")
+      .that.equals("Brand")
+  })
 
 })
+
+

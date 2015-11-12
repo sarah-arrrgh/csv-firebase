@@ -1,4 +1,37 @@
 parser = {
+
+  currentSection: "",
+  currentCategory: "",
+  currentBrand: "",
+
+  parse: function(record) {
+    var newSection = parser.findSection(record)
+    var newCategory = parser.findCategory(record)
+    var newBrand = parser.findBrand(record)
+    var product = parser.createProductObject(record)
+
+    if (newSection) {
+      this.currentSection = newSection
+    } else if (newCategory) {
+      this.currentCategory = newCategory
+    } else if (newBrand) {
+      this.currentBrand = newBrand
+    } else if (product) {
+      product.brand = this.currentBrand
+      product.category = this.currentCategory
+      product.section = this.currentSection
+      return product
+    }
+  },
+
+  findSection: function(record) {
+    if (record[0] != "" && record[3] == "") {
+      if(record[0] === record[0].toUpperCase()) {
+        return record[0]
+      }
+    }
+  },
+
   findCategory: function(record) {
     if (record[0] == "" && record[3] != "") {
       if(record[3] === record[3].toUpperCase()) {
@@ -6,6 +39,7 @@ parser = {
       }
     }
   },
+
   findBrand: function(record) {
     if (record[0] == "" && record[3] != "") {
       if(record[3] !== record[3].toUpperCase()) {
@@ -13,6 +47,7 @@ parser = {
       }
     }
   },
+
   createProductObject: function(record) {
     var object = {}
 
@@ -24,23 +59,6 @@ parser = {
       object.unitTradePrice = record[6]
       object.caseTradePrice = record[7]
       return object
-    }
-  },
-  currentCategory: "",
-  currentBrand: "",
-  parse: function(record) {
-    var newCategory = parser.findCategory(record)
-    var newBrand = parser.findBrand(record)
-    var product = parser.createProductObject(record)
-
-    if (newCategory) {
-      this.currentCategory = newCategory
-    } else if (newBrand) {
-      this.currentBrand = newBrand
-    } else if (product) { //we've hit a product
-      product.brand = this.currentBrand
-      product.category = this.currentCategory
-      return product
     }
   }
 }
