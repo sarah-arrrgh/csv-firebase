@@ -9,5 +9,4 @@ fs.createReadStream("./csv/ceres-june.csv")
   .pipe(csv.transform(function(record){
     var product = parser.parse(record)
     productRef.push(product)
-    // createProduct(product)
   }))
