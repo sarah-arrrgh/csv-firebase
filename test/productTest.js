@@ -107,6 +107,15 @@ describe("Supplier", function(){
   })
 })
 
+describe("Gluten-Free Boolean", function(){
+
+  it("sets product GF status to false", function(){
+    var parsedProduct = parser.parse(product)
+    expect(parsedProduct).to.have.property("glutenFree")
+      .to.be.false
+  })
+})
+
 describe("Parser", function(){
 
   it("remembers current section",function(){

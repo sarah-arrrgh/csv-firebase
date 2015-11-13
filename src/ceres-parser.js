@@ -18,6 +18,7 @@ parser = {
     } else if (newBrand) {
       this.currentBrand = newBrand
     } else if (product) {
+      product.glutenFree = false
       product.brand = this.currentBrand
       product.category = this.currentCategory
       product.section = this.currentSection
