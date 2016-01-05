@@ -22,11 +22,21 @@ stream
     }
   }))
 
+function findGF(code, array){
+  return q
+  })
+}
+
 stream.on("end", function(){
-  console.log("gf product codes:", gfProductCodes)
+  allProducts.filter()
+  // console.log("gf product codes:", gfProductCodes)
   console.log("all products", allProducts)
 })
 
 // now i have a list of all the product codes of items that are gluten free
 // find them in the existing product list
 //
+a = [{},{},{}]
+a.filter(function(i){
+  return i.code == "2"
+})
